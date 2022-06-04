@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block content %}
+
+
+
+<div class="card mt-2">
+    <div class="card-body mx-auto">
+        <h4>Deteksi Tumor</h4>
+
+    </div>
+        
+</div>
+<div class="card mt-1">
+    <div class="card-body" align="center">
+        <div class="row">
+            <div class="col mt-2">
+                PILIH GAMBAR
+            </div>
+            <div class="col">
+                    <form id="upload-file" method="post" enctype="multipart/form-data">
+                        <label for="imageUpload" class="btn btn-success">
+                            PILIH                        </label>
+                        <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg"> 
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-1 image-section mx-auto" style="display:none;" align="center">
+     <div class="img-preview mt-5" align="center">
+            <div id="imagePreview">
+            </div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary btn-lg " id="btn-predict">CEK !</button>
+        </div>
+  
+            <div class="loader" style="display:none;" align="center"></div>
+
+                <h4 id="result">
+                    <span> </span>
+                </h4><br><br>
+</div><br><br>
+
+
+
+
+{% endblock %}
