@@ -33,33 +33,51 @@ def model_predict(img_path, model):
     return preds
 
 @app.route('/', methods=['GET'])
+def splash():
+    return render_template('splash.html')
+
+@app.route('/index', methods=['GET'])
 def index():
     return render_template('index.html')
 
 @app.route('/predict', methods=['GET', 'POST'])
 def upload():
-    
-    if request.method == 'POST':
+     if request.method == 'POST':
         f = request.files['file']
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(
             basepath, 'images', secure_filename(f.filename))
         f.save(file_path)
+
+
         preds = model_predict(file_path, model)
+        accuracy=float(np.max(preds,axis=1)[0]) * 100
+        result=np.argmax(preds,axis=1)[0]
         labels=np.array(preds)
         labels[labels>=0.6]=1
         labels[labels<0.6]=0
         final=np.array(labels)
+        print(preds,result,accuracy)
+        gt = {'preds': {'result': 'Glioma Tumor','accuracy': accuracy}}
+        mt = {'preds': {'result': 'Meningioma Tumor','accuracy': accuracy}}
+        nt = {'preds': {'result': 'Tidak ada tumor','accuracy': accuracy}}
+        pt = {'preds': {'result': 'pituitary tumor','accuracy': accuracy}}
+        
+
         if final[0][0]==1:
-            return('Glioma Tumor')                                                       
+            return(gt)                                                       
         elif final[0][1]==1:
-            return('Meningioma Tumor')                                                 
+            return(mt)                                                 
         elif final[0][2]==1:
-            return('Tidak ada tumor')                                                   
+            return(nt)                                                   
         elif final[0][3]==1:                                                       
-            return('pituitary tumor')                                                    
+            return(pt)                                                    
         else:
             return('Tidak Tahu')
+        
+
+        
+
 
 if __name__ == "__main__":
     app.run(debug=True)

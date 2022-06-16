@@ -1,3 +1,8 @@
+function myFunction() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
+
 $(document).ready(function () {
     // Init
     $('.image-section').hide();
@@ -21,6 +26,8 @@ $(document).ready(function () {
         $('#btn-predict').show();
         $('#result').text('');
         $('#result').hide();
+        $('#prob').text('');
+        $('#prob').hide();
         readURL(this);
     });
 
@@ -45,7 +52,9 @@ $(document).ready(function () {
                 // Get and display the result
                 $('.loader').hide();
                 $('#result').fadeIn(600);
-                $('#result').text(' Hasil:  ' + data);
+                $('#prob').fadeIn(600);
+                $('#result').text('Hasil = ' + data.preds.result);
+                $('#prob').text('Probability = ' + data.preds.accuracy.toFixed(2) + '%');
                 console.log('Success!');
             },
         });

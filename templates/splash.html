@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen</title>
+  <link rel="stylesheet"  href="{{ url_for('static', filename='css/splash.css') }}">
+</head>
+
+<body>
+  <div class="cover">
+    <img src="{{ url_for('static',filename='img/logo.svg')}}" id="icon">
+  </div>
+  <div class="content">
+      
+  </div>
+<script type="text/javascript">
+setTimeout(
+  function(){
+    window.location = "/index" 
+  },
+7000); // waktu tunggu atau delay
+</script>
+
+</body>
+</html>
